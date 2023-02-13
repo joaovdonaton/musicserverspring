@@ -60,9 +60,17 @@ public class AlbumsService {
     }
 
     public Set<Album> search(Long artistId, Integer from, Integer to, String genre) {
-        Set<Album> albums = null;
+        Set<Album> albums = new HashSet<>(repository.findAll());
         if(artistId != null){
             albums = artistsService.getById(artistId).getAlbums();
+        }
+
+        if(from != null){
+            albums = albums.stream().filter(album -> album.getYear() >= from).collect(Collectors.toSet());
+        }
+
+        if(to != null){
+            albums = albums.stream().filter(album -> album.getYear() <= to).collect(Collectors.toSet());
         }
 
         return albums;
