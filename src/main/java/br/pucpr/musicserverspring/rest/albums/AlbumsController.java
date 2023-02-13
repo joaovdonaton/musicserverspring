@@ -6,6 +6,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/albums")
 public class AlbumsController {
@@ -23,9 +26,19 @@ public class AlbumsController {
     }
 
     @Transactional
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteAlbum(@PathVariable("id") Long id){
         service.deleteAlbum(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Transactional
+    @GetMapping("search")
+    public Set<Album> searchAlbums(
+            @RequestParam(required = false) Long artistId,
+            @RequestParam(required = false) Integer from,
+            @RequestParam(required = false) Integer to,
+            @RequestParam(required = false) String genre){
+        return service.search(artistId, from, to, genre);
     }
 }

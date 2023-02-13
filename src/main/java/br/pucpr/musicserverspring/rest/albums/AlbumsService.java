@@ -5,6 +5,7 @@ import br.pucpr.musicserverspring.rest.artists.Artist;
 import br.pucpr.musicserverspring.rest.artists.ArtistsRepository;
 import br.pucpr.musicserverspring.rest.artists.ArtistsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashSet;
 import java.util.List;
@@ -56,5 +57,14 @@ public class AlbumsService {
 
         //remover album
         repository.deleteById(id);
+    }
+
+    public Set<Album> search(Long artistId, Integer from, Integer to, String genre) {
+        Set<Album> albums = null;
+        if(artistId != null){
+            albums = artistsService.getById(artistId).getAlbums();
+        }
+
+        return albums;
     }
 }
