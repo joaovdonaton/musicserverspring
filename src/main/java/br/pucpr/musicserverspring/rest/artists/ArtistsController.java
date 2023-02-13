@@ -1,5 +1,6 @@
 package br.pucpr.musicserverspring.rest.artists;
 
+import br.pucpr.musicserverspring.rest.artists.DTO.ArtistRegisterDTO;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,8 @@ public class ArtistsController {
 
     @PostMapping
     @Transactional
-    public Artist add(@RequestBody @Valid Artist artist){
-        return service.add(artist);
+    public Artist add(@RequestBody @Valid ArtistRegisterDTO artist){
+        return service.add(new Artist(artist.getName(), artist.getGenres()));
     }
 
     @DeleteMapping("{id}")

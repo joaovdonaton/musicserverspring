@@ -1,5 +1,6 @@
 package br.pucpr.musicserverspring.rest.artists;
 
+import br.pucpr.musicserverspring.rest.albums.Album;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -25,4 +26,15 @@ public class Artist {
     @CollectionTable(name = "GENRES", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "genre")
     private Set<String> genres;
+
+    @ManyToMany
+    @JoinTable(name = "artists_albums",
+            joinColumns = @JoinColumn(name = "artist_id"),
+            inverseJoinColumns = @JoinColumn(name = "album_id"))
+    private Set<Album> albums;
+
+    public Artist(String name, Set<String> genres) {
+        this.name = name;
+        this.genres = genres;
+    }
 }

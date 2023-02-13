@@ -29,4 +29,8 @@ public class ArtistsService {
         if(!repository.existsById(id)) throw new NotFoundException(id);
         repository.deleteById(id);
     }
+
+    public Artist getById(Long id){
+        return repository.findById(id).orElseThrow(NotFoundException::new);
+    }
 }
