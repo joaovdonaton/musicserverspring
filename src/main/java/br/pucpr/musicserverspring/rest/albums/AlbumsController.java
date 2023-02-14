@@ -1,6 +1,8 @@
 package br.pucpr.musicserverspring.rest.albums;
 
 import br.pucpr.musicserverspring.rest.albums.DTO.AlbumRegisterDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +23,16 @@ public class AlbumsController {
 
     @Transactional
     @PostMapping
+    @RolesAllowed("ADMIN")
+    @SecurityRequirement(name = "authServer")
     public Album insertAlbum(@RequestBody @Valid AlbumRegisterDTO album) {
         return service.addAlbum(new Album(album.getName(), album.getYear()), album.getArtistIds());
     }
 
     @Transactional
     @DeleteMapping("{id}")
+    @RolesAllowed("ADMIN")
+    @SecurityRequirement(name = "authServer")
     public ResponseEntity<String> deleteAlbum(@PathVariable("id") Long id){
         service.deleteAlbum(id);
         return ResponseEntity.noContent().build();

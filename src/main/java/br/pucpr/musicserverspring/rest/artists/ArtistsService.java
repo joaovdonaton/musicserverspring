@@ -2,10 +2,12 @@ package br.pucpr.musicserverspring.rest.artists;
 
 import br.pucpr.musicserverspring.lib.exception.BadRequestException;
 import br.pucpr.musicserverspring.lib.exception.NotFoundException;
+import br.pucpr.musicserverspring.rest.albums.Album;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ArtistsService {
@@ -32,5 +34,9 @@ public class ArtistsService {
 
     public Artist getById(Long id){
         return repository.findById(id).orElseThrow(NotFoundException::new);
+    }
+
+    public Set<Album> getAlbumsByArtistId(Long id) {
+        return getById(id).getAlbums();
     }
 }

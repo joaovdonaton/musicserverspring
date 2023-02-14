@@ -2,10 +2,8 @@ package br.pucpr.musicserverspring.rest.albums;
 
 import br.pucpr.musicserverspring.lib.exception.NotFoundException;
 import br.pucpr.musicserverspring.rest.artists.Artist;
-import br.pucpr.musicserverspring.rest.artists.ArtistsRepository;
 import br.pucpr.musicserverspring.rest.artists.ArtistsService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashSet;
 import java.util.List;
@@ -71,6 +69,14 @@ public class AlbumsService {
 
         if(to != null){
             albums = albums.stream().filter(album -> album.getYear() <= to).collect(Collectors.toSet());
+        }
+
+        if(genre != null){
+            albums = albums.stream().filter(album -> {
+                var artists = album.getArtists();
+
+                return artists.stream().anyMatch(artist -> artist.getGenres().contains(genre));
+            }).collect(Collectors.toSet());
         }
 
         return albums;

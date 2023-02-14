@@ -1,0 +1,11 @@
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022,
+  "user": {
+  "id": 1,
+  "roles": ["USERS", "ADMIN"]
+  }
+}
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1c2VyIjp7ImlkIjoxLCJyb2xlcyI6WyJVU0VSUyIsIkFETUlOIl19fQ.bxVSjJl9mhlNIYOb99j-wrn6iv7_KCyfQWdVMU3mqCw

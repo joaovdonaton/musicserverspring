@@ -1,5 +1,6 @@
 package br.pucpr.musicserverspring.rest.artists;
 
+import br.pucpr.musicserverspring.rest.albums.Album;
 import br.pucpr.musicserverspring.rest.artists.DTO.ArtistRegisterDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/artists")
@@ -39,5 +41,10 @@ public class ArtistsController {
     @SecurityRequirement(name = "authServer")
     public void delete(@PathVariable("id") Long id){
          service.delete(id);
+    }
+
+    @GetMapping("{id}/albums")
+    public Set<Album> artistAlbums(@PathVariable("id") Long id){
+        return service.getAlbumsByArtistId(id);
     }
 }
