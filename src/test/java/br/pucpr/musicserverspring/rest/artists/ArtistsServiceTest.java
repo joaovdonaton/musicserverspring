@@ -54,4 +54,9 @@ public class ArtistsServiceTest {
             service.add(artist);
         });
     }
+
+    @Test
+    public void shouldThrowNotFoundIfAlbumArtistIdDoesntExist(){
+
+    }
 }
