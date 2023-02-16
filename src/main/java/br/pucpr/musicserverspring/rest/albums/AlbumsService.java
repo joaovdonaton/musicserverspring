@@ -1,5 +1,6 @@
 package br.pucpr.musicserverspring.rest.albums;
 
+import br.pucpr.musicserverspring.lib.exception.BadRequestException;
 import br.pucpr.musicserverspring.lib.exception.NotFoundException;
 import br.pucpr.musicserverspring.rest.artists.Artist;
 import br.pucpr.musicserverspring.rest.artists.ArtistsService;
@@ -59,8 +60,13 @@ public class AlbumsService {
 
     public Set<Album> search(Long artistId, Integer from, Integer to, String genre) {
         Set<Album> albums = new HashSet<>(repository.findAll());
+
         if(artistId != null){
             albums = artistsService.getById(artistId).getAlbums();
+        }
+
+        if((from != null && to != null) && to < from) {
+            throw new BadRequestException("'To' parameter cannot be less than 'From' parameter");
         }
 
         if(from != null){

@@ -11,7 +11,7 @@ public class BadRequestException extends NoSuchElementException {
     }
 
     public BadRequestException(Long id){
-        this("Not Found: " + id);
+        this("Bad Request");
     }
 
     public BadRequestException(String s, Throwable cause) {
