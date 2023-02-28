@@ -13,9 +13,15 @@ import java.io.IOException;
 
 @Component
 public class JwtTokenFilter extends GenericFilterBean {
+    private JWT jwt;
+
+    public JwtTokenFilter(JWT jwt) {
+        this.jwt = jwt;
+    }
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        final var auth = JWT.extract((HttpServletRequest) req);
+        final var auth = jwt.extract((HttpServletRequest) req);
         if(auth == null){
             chain.doFilter(req, res);
             return;
